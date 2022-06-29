@@ -60,7 +60,7 @@ def main():
     # borrar originales y hacer shadowcopy
     # encriptar llaves
     # popups notificando rescate te kbio
-    # desencriptar.
+    # desencriptar.gfdsg
 
 
 main()
