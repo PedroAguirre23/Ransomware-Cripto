@@ -7,7 +7,7 @@
 * **Vazquez Rodrigo**, rvazquez@fi.uba.ar, 98934, rodrigovzq
 
 /******************************Importante******************************/
-Para ejecutar el programa, se debe desactivar temporalmente el Firewall.
+Para ejecutar el programa, se debe desactivar temporalmente el antivirus.
 /**********************************************************************/
 
 
